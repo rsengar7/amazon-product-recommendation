@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Ratings Response</title>
+    <style>
+        /* Add your styles here if needed */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .thumbnail {
+            max-width: 50px;
+            cursor: pointer;
+        }
+
+        .full-size-image-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .full-size-image-wrapper {
+            position: relative;
+        }
+
+        .full-size-image {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Recommended Products Based on Ratings</h1>
+
+    <div id="tableContainer"></div>
+
+    <script>
+        // Function to display API response in HTML table
+        function displayDataInTable(apiResponse) {
+            // Check if the API response has the expected 'data' property
+            if (!apiResponse || !apiResponse.data || !Array.isArray(apiResponse.data)) {
+                console.error('Invalid API response format');
+                return;
+            }
+
+            var tableHtml = '<table border="1"><tr><th>Index</th><th>Product ID</th><th>Product Name</th><th>Brand</th><th>Title</th><th>Features</th><th>Images</th></tr>';
+
+            apiResponse.data.forEach((item, index) => {
+                tableHtml += '<tr>';
+                tableHtml += '<td>' + (index + 1) + '</td>'; // Add 1 to index to start from 1 instead of 0
+                tableHtml += '<td>' + item.product_id + '</td>';
+                tableHtml += '<td>' + item.product_name + '</td>';
+                tableHtml += '<td>' + item.brand + '</td>';
+                tableHtml += '<td>' + item.title + '</td>';
+                tableHtml += '<td>' + formatPoints(item.features) + '</td>';
+
+                var imageUrl = item.images ? item.images[0] : '';
+                tableHtml += '<td style="vertical-align: middle;"><img src="' + imageUrl + '" alt="Product Image" class="thumbnail" onclick="openFullSizeImage(\'' + imageUrl + '\')"></td>';
+
+                tableHtml += '</tr>';
+            });
+
+            tableHtml += '</table>';
+
+            // Display the table in a specific HTML element (e.g., with id 'tableContainer')
+            document.getElementById('tableContainer').innerHTML = tableHtml;
+        }
+
+        function formatPoints(points) {
+            if (!points) {
+                return '';
+            }
+
+            // Split the pipe-separated string into an array
+            const pointsArray = points.split('|');
+
+            // Create a list of points using list items
+            const pointsHtml = '<ul>' +
+                pointsArray.map(point => `<li>${point.trim()}</li>`).join('') +
+                '</ul>';
+
+            return pointsHtml;
+        }
+
+
+        // Function to open full-size image in a pop-up
+        function openFullSizeImage(imageUrl) {
+            const fullSizeImageContainer = document.createElement('div');
+            fullSizeImageContainer.className = 'full-size-image-container';
+
+            const fullSizeImageWrapper = document.createElement('div');
+            fullSizeImageWrapper.className = 'full-size-image-wrapper';
+
+            const fullSizeImage = document.createElement('img');
+            fullSizeImage.className = 'full-size-image';
+            fullSizeImage.src = imageUrl;
+            fullSizeImage.alt = 'Full Size Image';
+
+            const closeButton = document.createElement('span');
+            closeButton.className = 'close-button';
+            closeButton.innerHTML = '×';
+            closeButton.onclick = function () {
+                document.body.removeChild(fullSizeImageContainer);
+            };
+
+            fullSizeImageWrapper.appendChild(fullSizeImage);
+            fullSizeImageWrapper.appendChild(closeButton);
+            fullSizeImageContainer.appendChild(fullSizeImageWrapper);
+
+            document.body.appendChild(fullSizeImageContainer);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Replace 'YOUR_API_ENDPOINT' with the actual endpoint URL
+            const apiEndpoint = 'http://127.0.0.1:8000/recommended-products';
+
+            // Replace 'USER_ID' with the actual user ID
+            const userId = localStorage.getItem('user_id');
+
+            // Prepare the data to be sent in the request body
+            const requestData = {
+                user_id: userId,
+            };
+
+            // Make a POST request to the API endpoint
+            fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('API Response:', data); // Log the response to inspect
+                    displayDataInTable(data);
+
+                    // if (data && typeof data === 'object') {
+                    //     // Process the data and display it
+                    //     displayResponseData([data]);  // Wrap the object in an array
+
+                    // } else {
+                    //     console.error('Invalid API response:', data);
+                    // }
+                })
+                .catch(error => console.error('Error fetching data from the API:', error));
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        /* Add your styles here if needed */
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .thumbnail {
+            max-width: 50px;
+            cursor: pointer;
+            margin-right: 10px;
+            /* Added margin between thumbnails */
+        }
+
+        .full-size-image-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .full-size-image-wrapper {
+            position: relative;
+        }
+
+        .full-size-image {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .submit-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .error-message-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f44336;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        loader {
+            display: none;
+            border: 8px solid #f3f3f3;
+            /* Light grey */
+            border-top: 8px solid #3498db;
+            /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -25px;
+            /* Adjust based on the loader size */
+            margin-left: -25px;
+            /* Adjust based on the loader size */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader" class="loader"></div>
+
+    <h1>Product Details</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Average Rating</th>
+                <th>Images</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody id="dataContainer"></tbody>
+    </table>
+
+    <div id="fullSizeImageContainer" class="full-size-image-container">
+        <span class="close-button" onclick="closeFullSizeImage()">×</span>
+        <img id="fullSizeImage" class="full-size-image" src="" alt="Full Size Image">
+    </div>
+
+    <button id="submitButton" class="submit-button" onclick="submitRatings()">Submit Ratings</button>
+
+    <div id="errorMessageContainer" class="error-message-container">
+        <p>Please rate at least 20 products before submitting.</p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            showLoader();
+            // Fetch data from the API
+            fetch('http://127.0.0.1:8000/display-product')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.response === "true") {
+                        // Process the data and display it
+                        displayData(data.data);
+                    } else {
+                        console.error("API returned false response");
+                    }
+                })
+                .catch(error => console.error("Error fetching data:", error))
+                .finally(() => {
+                    // Hide loader regardless of success or error
+                    hideLoader();
+                });
+        });
+
+        function displayData(data) {
+            const container = document.getElementById('dataContainer');
+
+            // Loop through the data array
+            data.forEach((item, index) => {
+                // Create a row for each item
+                const row = document.createElement('tr');
+
+                // Display item information in cells
+                row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.name}</td>
+          <td>${item.category}</td>
+          <td>${item.brand}</td>
+          <td>${item.average_rating}</td>
+          <td>${formatImages(item.imageurl)}</td>
+          <td>${createRatingRadioButtons(item.id)}</td>
+        `;
+
+                // Append the row to the table body
+                container.appendChild(row);
+            });
+        }
+
+        function formatImages(imageurl) {
+            if (!imageurl) {
+                return '';
+            }
+
+            let imagesHtml = '';
+            for (const key in imageurl) {
+                const imageUrl = imageurl[key];
+                imagesHtml += `<img src="${imageUrl}" alt="Image ${key}" class="thumbnail" onclick="openFullSizeImage('${imageUrl}')">`;
+            }
+
+            return imagesHtml;
+        }
+
+        function createRatingRadioButtons(productId) {
+            let radioButtonsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                radioButtonsHtml += `
+          <input type="radio" name="rating_${productId}" value="${i}" id="radio_${productId}_${i}">
+          <label for="radio_${productId}_${i}">${i}</label>
+        `;
+            }
+            return radioButtonsHtml;
+        }
+
+        function openFullSizeImage(imageUrl) {
+            const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
+            const fullSizeImage = document.getElementById('fullSizeImage');
+            fullSizeImage.src = imageUrl;
+            fullSizeImageContainer.style.display = 'flex';
+
+            // Add click event listener to close the pop-up when clicking outside the image
+            fullSizeImageContainer.addEventListener('click', function (event) {
+                if (event.target === fullSizeImageContainer) {
+                    closeFullSizeImage();
+                }
+            });
+        }
+
+        function closeFullSizeImage() {
+            const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
+            fullSizeImageContainer.style.display = 'none';
+        }
+
+        function submitRatings() {
+            const selectedRatings = document.querySelectorAll('input[type="radio"]:checked');
+            const errorMessageContainer = document.getElementById('errorMessageContainer');
+
+            if (selectedRatings.length < 20) {
+                // Display an error message
+                errorMessageContainer.style.display = 'block';
+
+                // Set a timeout to hide the error message after 3 seconds
+                setTimeout(() => {
+                    errorMessageContainer.style.display = 'none';
+                }, 3000);
+            } else {
+                // Hide the error message if previously shown
+                errorMessageContainer.style.display = 'none';
+
+                // Prepare the data to be sent to the API
+                const ratingsData = Array.from(selectedRatings).map(rating => {
+                    const productId = rating.name.split('_')[1];
+                    return { productId, rating: rating.value }; // Add user_id property
+                });
+
+                // Replace the URL with your actual API endpoint
+                const apiEndpoint = 'http://127.0.0.1:8000/submit-ratings';
+
+                const storedUserId = localStorage.getItem('user_id');
+
+                // Make a POST request to the API endpoint
+                fetch(apiEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ ratings: ratingsData, user_id: storedUserId }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('API response:', data);
+                        // Handle the response from the API as needed
+
+                        // Check if the API response indicates success
+                        if (data.success) {
+                            // Redirect to index.html upon success
+                            window.location.href = 'user-recommended-products.html';
+                        } else {
+                            // Handle other cases if needed
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error submitting ratings:', error);
+                        // Handle errors here
+                    })
+                    .finally(() => {
+                        // Hide loader regardless of success or error
+                        hideLoader();
+                    });
+            }
+        }
+
+        function showLoader() {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+        }
+
+        function hideLoader() {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'none';
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>

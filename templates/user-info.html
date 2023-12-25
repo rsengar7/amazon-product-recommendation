@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Feedback Form</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+      color: #333;
+    }
+
+    .panel-body {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .radio-label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: normal;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .btn-submit {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h3><b>Please answer the following questions.</b></h3>
+
+    <form class="form-inline" id="feedbackForm">
+      <!-- Additional Fields -->
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>First Name</h3>
+        <div class="radio-label">
+          <input type="text" id="first_name" name="first_name" required>
+        </div>
+      </div>
+
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>Last Name</h3>
+        <div class="radio-label">
+          <input type="text" id="last_name" name="last_name" required>
+        </div>
+      </div>
+
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>Address</h3>
+        <div class="radio-label">
+          <input type="text" id="address" name="address" required>
+        </div>
+      </div>
+
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>City</h3>
+        <div class="radio-label">
+          <input type="text" id="city" name="city" required>
+        </div>
+      </div>
+
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>Country</h3>
+        <div class="radio-label">
+          <input type="text" id="country" name="country" required>
+        </div>
+      </div>
+      
+      <!-- Existing Questions -->
+      <!-- Question 1 -->
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>Did you participate in a similar study before?</h3>
+        <div class="radio-label">
+          <label for="old_user_yes"><input type="radio" name="old_user_id" id="old_user_yes" value="yes" required> Yes</label>
+        </div>
+        <div class="radio-label">
+          <label for="old_user_no"><input type="radio" name="old_user_id" id="old_user_no" value="no" required> No</label>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>What is your gender?</h3>
+        <div class="radio-label">
+          <label for="gender_male"><input type="radio" name="gender" id="gender_male" value="male" required> Male</label>
+        </div>
+        <div class="radio-label">
+          <label for="gender_female"><input type="radio" name="gender" id="gender_female" value="female" required> Female</label>
+        </div>
+        <div class="radio-label">
+          <label for="gender_other"><input type="radio" name="gender" id="gender_other" value="other" required> Other</label>
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>How old are you?</h3>
+        <div class="radio-label">
+          <label for="age">Your Age:</label>
+          <input type="number" id="age" name="age" required>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>Are you a native English speaker?</h3>
+        <div class="radio-label">
+          <label for="native_yes"><input type="radio" name="native" id="native_yes" value="y" required> Yes</label>
+        </div>
+        <div class="radio-label">
+          <label for="native_no"><input type="radio" name="native" id="native_no" value="n" required> No</label>
+        </div>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>Have you used any recommendation systems before?</h3>
+        <div class="radio-label">
+          <label for="used_yes"><input type="radio" name="used" id="used_yes" value="y" required> Yes</label>
+        </div>
+        <div class="radio-label">
+          <label for="used_no"><input type="radio" name="used" id="used_no" value="n" required> No</label>
+        </div>
+      </div>
+
+      <!-- Question 7 -->
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>How familiar are you with recommendation systems and how they work?</h3>
+        <p>Please rate based on the following criteria:</p>
+        <div class="radio-label">
+          <label for="familiar_1"><input type="radio" name="familiar" id="familiar_1" value="1" required> 1 (Not at all)</label>
+        </div>
+        <div class="radio-label">
+          <label for="familiar_2"><input type="radio" name="familiar" id="familiar_2" value="2" required> 2</label>
+        </div>
+        <div class="radio-label">
+          <label for="familiar_3"><input type="radio" name="familiar" id="familiar_3" value="3" required> 3</label>
+        </div>
+        <div class="radio-label">
+          <label for="familiar_4"><input type="radio" name="familiar" id="familiar_4" value="4" required> 4</label>
+        </div>
+        <div class="radio-label">
+          <label for="familiar_5"><input type="radio" name="familiar" id="familiar_5" value="5" required> 5 (Extremely)</label>
+        </div>
+      </div>
+
+      <div class="panel-body" style="background-color:#e8ebef">
+        <h3>How do you feel when you see sponsored content when you are using online services?</h3>
+        <div class="radio-label">
+          <label for="sponsored_content"><input type="text" id="sponsored_content" name="sponsored_content" style="height:100px;width:300px" minlength="50" required></label>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="panel-body">
+        <button class="btn-submit" type="button" onclick="submitForm()">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function submitForm() {
+
+      const storedUserId = localStorage.getItem('user_id');
+
+      // Gather form data
+      const formData = {
+        user_id: storedUserId,
+        first_name: document.getElementById('first_name').value,
+        last_name: document.getElementById('last_name').value,
+        address: document.getElementById('address').value,
+        city: document.getElementById('city').value,
+        country: document.getElementById('country').value,
+        old_user_id: document.querySelector('input[name="old_user_id"]:checked').value,
+        gender: document.querySelector('input[name="gender"]:checked').value,
+        age: document.getElementById('age').value,
+        native: document.querySelector('input[name="native"]:checked').value,
+        used: document.querySelector('input[name="used"]:checked').value,
+        familiar: document.querySelector('input[name="familiar"]:checked').value,
+        sponsored_content: document.getElementById('sponsored_content').value
+      };
+
+      
+
+      if (storedUserId) {
+            console.log('User ID retrieved from localStorage:', storedUserId);
+            // You can use storedUserId as needed in your script
+      } else {
+            console.log('No user ID found in localStorage');
+            // If user_id is not found, you may want to set it or take appropriate action
+      }
+
+      // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
+      const apiEndpoint = 'http://127.0.0.1:8000/user-info';
+
+      // Send data to API endpoint (you can use fetch or another AJAX method)
+      fetch(apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('API response:', data);
+          // Handle the response from the API as needed
+
+          // Check if the API response indicates success
+          if (data.success) {
+              // Redirect to index.html upon success
+              window.location.href = 'display-products.html';
+          } else {
+              // Handle other cases if needed
+          }
+        })
+        .catch(error => {
+          console.error('Error submitting form:', error);
+          // Handle errors here
+        });
+    }
+  </script>
+
+</body>
+</html>
