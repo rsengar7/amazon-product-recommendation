@@ -180,12 +180,12 @@
         </div>
       </div>
 
-      <div class="panel-body" style="background-color:#e8ebef">
+      <!-- <div class="panel-body" style="background-color:#e8ebef">
         <h3>How do you feel when you see sponsored content when you are using online services?</h3>
         <div class="radio-label">
           <label for="sponsored_content"><input type="text" id="sponsored_content" name="sponsored_content" style="height:100px;width:300px" minlength="50" required></label>
         </div>
-      </div>
+      </div> -->
 
       <!-- Submit Button -->
       <div class="panel-body">
@@ -213,7 +213,6 @@
         native: document.querySelector('input[name="native"]:checked').value,
         used: document.querySelector('input[name="used"]:checked').value,
         familiar: document.querySelector('input[name="familiar"]:checked').value,
-        sponsored_content: document.getElementById('sponsored_content').value
       };
 
       
@@ -245,7 +244,7 @@
           // Check if the API response indicates success
           if (data.success) {
               // Redirect to index.html upon success
-              window.location.href = 'display-products.html';
+              window.location.href = 'display-product.html';
           } else {
               // Handle other cases if needed
           }

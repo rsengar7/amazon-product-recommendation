@@ -1,9 +1,10 @@
 # main.py
 import hashlib
 import json
-# from surprise import Dataset, Reader
-# from surprise.model_selection import train_test_split
-# from surprise import SVD
+import time
+from surprise import Dataset, Reader
+from surprise.model_selection import train_test_split
+from surprise import SVD
 from collections import defaultdict
 
 '''
@@ -162,7 +163,8 @@ def user_info(data: dict):
     native = data['native']
     used = data['used']
     familiar = data['familiar']
-    sponsored_content = data['sponsored_content']
+    # sponsored_content = data['sponsored_content']
+    sponsored_content = ""
 
     query = """
         INSERT INTO 
@@ -268,13 +270,24 @@ def submit_ratings(data: dict):
 
     json_dump = json.dumps(dict1)
 
+    query = "DELETE FROM user_ratings where user_id = '{}'".format(user_id)
+    cur.execute(query)
+
     query = "INSERT INTO user_ratings(user_id, user_rating) VALUES (%s, %s)"
     cur.execute(query, [user_id, json_dump])
 
+    start = time.time()
+
     out = get_recommendations(user_id, conn)
+    print("./"*100)
     print(out)
+    print("./"*100)
+    print("Toatl Time : -----", int(time.time()) - int(start))
 
     details = json.dumps(out)
+
+    query = "DELETE FROM user_predicted_products where user_id = '{}'".format(user_id)
+    cur.execute(query)
 
     predicted_product_query = "INSERT INTO user_predicted_products (user_id, product_info) VALUES (%s, %s)"
     cur.execute(predicted_product_query, (user_id, details))
@@ -295,6 +308,7 @@ def display_recommeded_product_view(data: dict):
     data = cur.fetchone()
 
     products = json.loads(data[0])
+
 
     return {"response": True, "data": products}
 
@@ -343,8 +357,8 @@ def add_userdata_into_training(user_id, ratings, cur):
     ratings_new = pd.concat([user_df, ratings], ignore_index=True)
     # ratings_new = user_df.append(ratings)
 
-    # model = train_with_data(ratings_new)
-    model = ""
+    model = train_with_data(ratings_new)
+    # model = ""
 
     return model, ratings_new
 
@@ -372,14 +386,14 @@ def get_recommendations(user_id, conn):
 
     model, df_new_ratings = add_userdata_into_training(user_id, ratings, cur)
     
-    with open('Model/svd_model.pkl', 'rb') as fp:
-        model = pickle.load(fp)
+    # with open('Model/svd_model.pkl', 'rb') as fp:
+    #     model = pickle.load(fp)
 
     test = [(user_id, item_id, actual_rating) for item_id, actual_rating in zip(df_new_ratings['asin'].unique(), df_new_ratings['rating'])]
 
     predictions = model.test(test)
     
-    top_n = get_top_n(predictions, n=5)
+    top_n = get_top_n(predictions, n=20)
 
     recommended_data = {}
     products = []
@@ -389,7 +403,8 @@ def get_recommendations(user_id, conn):
         recommended_data[item_id] = rating
         products.append(item_id)
 
-    query = "Select product_id, product_name, brand, title, features, imageurl_high as image from all_products where product_id IN {}".format(tuple(products))
+    query = "Select product_id, product_name, brand, title, features, imageurl_high as image from all_products where product_id IN {} and product_name != '' limit 5".format(tuple(products))
+    print("Query : ",query)
     cur.execute(query)
 
     product_details = cur.fetchall()
@@ -397,10 +412,12 @@ def get_recommendations(user_id, conn):
     for row in product_details:
         product_row = {}        
         product_row['product_id'] = row[0]
+        product_row['rating'] = recommended_data[row[0]]
         product_row['product_name'] = row[1]
         product_row['brand'] = row[2]
         product_row['title'] = row[3]
-        product_row['features'] = row[4]
+        # product_row['features'] = row[4]
+        
         images = {}
         for index, image in enumerate(row[5].split("|")):
             images[index] = image

@@ -253,64 +253,68 @@
             fullSizeImageContainer.style.display = 'none';
         }
 
-        function submitRatings() {
-            const selectedRatings = document.querySelectorAll('input[type="radio"]:checked');
-            const errorMessageContainer = document.getElementById('errorMessageContainer');
+    function submitRatings() {
+        document.getElementById('loader').style.display = 'block';
+    const selectedRatings = document.querySelectorAll('input[type="radio"]:checked');
+    const errorMessageContainer = document.getElementById('errorMessageContainer');
 
-            if (selectedRatings.length < 20) {
-                // Display an error message
-                errorMessageContainer.style.display = 'block';
+    if (selectedRatings.length < 5) {
+        // Display an error message
+        errorMessageContainer.style.display = 'block';
 
-                // Set a timeout to hide the error message after 3 seconds
-                setTimeout(() => {
-                    errorMessageContainer.style.display = 'none';
-                }, 3000);
-            } else {
-                // Hide the error message if previously shown
-                errorMessageContainer.style.display = 'none';
+        // Set a timeout to hide the error message after 3 seconds
+        setTimeout(() => {
+            errorMessageContainer.style.display = 'none';
+        }, 3000);
+    } else {
+        // Hide the error message if previously shown
+        errorMessageContainer.style.display = 'none';
 
-                // Prepare the data to be sent to the API
-                const ratingsData = Array.from(selectedRatings).map(rating => {
-                    const productId = rating.name.split('_')[1];
-                    return { productId, rating: rating.value }; // Add user_id property
-                });
+        // Show loader before making the API request
+        showLoader();
 
-                // Replace the URL with your actual API endpoint
-                const apiEndpoint = 'http://127.0.0.1:8000/submit-ratings';
+        // Prepare the data to be sent to the API
+        const ratingsData = Array.from(selectedRatings).map(rating => {
+            const productId = rating.name.split('_')[1];
+            return { productId, rating: rating.value };
+        });
 
-                const storedUserId = localStorage.getItem('user_id');
+        // Replace the URL with your actual API endpoint
+        const apiEndpoint = 'http://127.0.0.1:8000/submit-ratings';
 
-                // Make a POST request to the API endpoint
-                fetch(apiEndpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ ratings: ratingsData, user_id: storedUserId }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('API response:', data);
-                        // Handle the response from the API as needed
+        const storedUserId = localStorage.getItem('user_id');
 
-                        // Check if the API response indicates success
-                        if (data.success) {
-                            // Redirect to index.html upon success
-                            window.location.href = 'user-recommended-products.html';
-                        } else {
-                            // Handle other cases if needed
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error submitting ratings:', error);
-                        // Handle errors here
-                    })
-                    .finally(() => {
-                        // Hide loader regardless of success or error
-                        hideLoader();
-                    });
-            }
-        }
+        // Make a POST request to the API endpoint
+        fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ratings: ratingsData, user_id: storedUserId }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('API response:', data);
+                // Handle the response from the API as needed
+
+                // Check if the API response indicates success
+                if (data.success) {
+                    // Redirect to the next page upon success
+                    window.location.href = 'user-recommended-products.html';
+                } else {
+                    // Handle other cases if needed
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting ratings:', error);
+                // Handle errors here
+            })
+            .finally(() => {
+                // Hide loader regardless of success or error
+                hideLoader();
+            });
+    }
+}
 
         function showLoader() {
             const loader = document.getElementById('loader');
@@ -321,8 +325,6 @@
             const loader = document.getElementById('loader');
             loader.style.display = 'none';
         }
-
-
 
     </script>
 
