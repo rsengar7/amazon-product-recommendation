@@ -134,10 +134,10 @@ async def signup_view(request: Request):
     if password != confirm_password:
         return {"response": False, "message": "Password and Confirm Password do not match."}
 
-    encrypted_password = encrypt_password_sha256(password)
+    password = encrypt_password_sha256(password)
 
     query = "INSERT INTO all_users(username, password, email, country_code, phone_number) VALUES (%s, %s, %s, %s, %s)"
-    cur.execute(query, (username, encrypted_password, email, country_code, phone_number))
+    cur.execute(query, (username, password, email, country_code, phone_number))
 
     # Get the last inserted ID
     inserted_id = cur.lastrowid
@@ -190,27 +190,31 @@ def user_info(data: dict):
 
 
 @app.post('/login')
-async def login_view(request: Request):
+# async def login_view(request: Request):
+def login_view(data: dict):
     conn = DBConfig().db_conn()
     cur = conn.cursor()
 
-    user_data = await request.json()
-    data = Login(**user_data).dict()
+    # user_data = await request.json()
+    # data = Login(**user_data).dict()
 
     print(data)
 
     username = data['username']
     password = data['password']
 
-    encrypted_password = encrypt_password_sha256(password)
-    query = "select id from all_users where username = '{}' and password = '{}'".format(username, encrypted_password)
+    password = encrypt_password_sha256(password)
+    query = "select id from all_users where username = '{}' and password = '{}'".format(username, password)
     print(query)
     cur.execute(query)
     res = cur.fetchall()
 
+    print("Result : ",res)
+
     if len(res) > 0:
-        
         return {"success": True, "message": "login successful", "user_id": res[0][0]}
+    else:
+        return {"success": False, "message": "Either Username or password is incorrect."}
 
 
 @app.get("/display-product")
@@ -312,7 +316,47 @@ def display_recommeded_product_view(data: dict):
 
     return {"response": True, "data": products}
 
-    
+
+@app.post("/submit-selection")
+def submit_selection(data: dict):
+    conn = DBConfig().db_conn()
+    cur = conn.cursor()
+
+    user_id = data['user_id']
+    selected_product = data['selected_product']
+
+    data = user_id + " -- " + selected_product
+
+    with open("submit_selection.txt", "a") as file:
+        file.write(data)
+        file.write("\n")
+
+    return {"response": True, "data": data}
+
+
+@app.post("/submit-feedback")
+def feedback_view(data: dict):
+    conn = DBConfig().db_conn()
+    cur = conn.cursor()
+
+    user_id = data['user_id']
+    sat1 = data['sat1']
+    sat2 = data['sat2']
+    sat3 = data['sat3']
+    sat4 = data['sat4']
+    sat5 = data['sat5']
+
+    print(data)
+
+    data1 = user_id + " = " + sat1 + " - " + sat2 + " - " + sat3 + " - " + sat4 + " - " + sat5 
+
+    with open("submit_feedback.txt", "a") as file:
+        file.write(str(data1))
+        file.write("\n")
+
+    return {"response": True, "data": data1}
+
+
     
 import pickle
 import numpy as np
