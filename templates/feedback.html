@@ -1,214 +1,407 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="./assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
     <title>Feedback Page</title>
-    <!-- Include any necessary stylesheets or scripts here -->
-</head>
 
-<body>
+    <meta name="description" content="" />
 
-    <h2>Feedback</h2>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon/favicon.ico" />
 
-    <div class="container">
-        <h4> Based on your recent choice, how much do you agree with the following statements.</h4>
-        <h4> Please rate based on the following criteria:</h4>
-        <h4> 1=Strongly Disagree &emsp;&emsp; 2=Disagree Somewhat &emsp;&emsp; 3=Disagree &emsp;&emsp; 4=Neutral
-            &emsp;&emsp; 5=Somewhat Agree &emsp;&emsp; 6=Agree &emsp;&emsp; 7=Strongly Agree</h4>
-    </div>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
 
-    <div class="panel panel-default">
-        <form class="form-inline" id="feedbackForm">
-            <!-- Your existing feedback questions go here -->
-            <div class="panel panel-body" style="background-color:#e8ebef">
-                <h3> The recommended products were well-chosen.</h3>
-                <div class="">
-                </div>
-                <div class="control-group inline">
-                    <div class="controls">
-                        <label class="radio">
-                            <input type="radio" name="sat0" id="1" value="1" required> &nbsp;1</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat0" id="2" value="2" required> &nbsp;2</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat0" id="3" value="3" required> &nbsp;3</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat0" id="4" value="4" required> &nbsp;4</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat0" id="5" value="5" required> &nbsp;5</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat0" id="6" value="6" required> &nbsp;6</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat0" id="7" value="7" required> &nbsp;7</label> &emsp;
-                    </div>
-                </div>
-            </div>
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="./assets/vendor/fonts/boxicons.css" />
 
-            <div class="panel panel-body" style="background-color:#e8ebef">
-                <h3> I am satisfied with the recommended products.</h3>
-                <div class="">
-                </div>
-                <div class="control-group inline">
-                    <div class="controls">
-                        <label class="radio">
-                            <input type="radio" name="sat1" id="1" value="1" required> &nbsp;1</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat1" id="2" value="2" required> &nbsp;2</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat1" id="3" value="3" required> &nbsp;3</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat1" id="4" value="4" required> &nbsp;4</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat1" id="5" value="5" required> &nbsp;5</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat1" id="6" value="6" required> &nbsp;6</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat1" id="7" value="7" required> &nbsp;7</label> &emsp;
-                    </div>
-                </div>
-            </div>
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="./assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="./assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="./assets/css/demo.css" />
 
-            <div class="panel panel-body" style="background-color:#e8ebef">
-                <h3> The system is able to identify good recommendations.</h3>
-                <div class="">
-                </div>
-                <div class="control-group inline">
-                    <div class="controls">
-                        <label class="radio">
-                            <input type="radio" name="sat2" id="1" value="1" required> &nbsp;1</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat2" id="2" value="2" required> &nbsp;2</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat2" id="3" value="3" required> &nbsp;3</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat2" id="4" value="4" required> &nbsp;4</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat2" id="5" value="5" required> &nbsp;5</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat2" id="6" value="6" required> &nbsp;6</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat2" id="7" value="7" required> &nbsp;7</label> &emsp;
-                    </div>
-                </div>
-            </div>
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="./assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-            <div class="panel panel-body" style="background-color:#e8ebef">
-                <h3> All of the recommended products were aligned with my preferences.</h3>
-                <div class="">
-                </div>
-                <div class="control-group inline">
-                    <div class="controls">
-                        <label class="radio">
-                            <input type="radio" name="sat3" id="1" value="1" required> &nbsp;1</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat3" id="2" value="2" required> &nbsp;2</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat3" id="3" value="3" required> &nbsp;3</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat3" id="4" value="4" required> &nbsp;4</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat3" id="5" value="5" required> &nbsp;5</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat3" id="6" value="6" required> &nbsp;6</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat3" id="7" value="7" required> &nbsp;7</label> &emsp;
-                    </div>
-                </div>
-            </div>
+    <!-- Page CSS -->
 
-            <div class="panel panel-body" style="background-color:#e8ebef">
-                <h3> The recommendation system tried to manipulate my preferences by showing items that were not aligned with my preferences.
-                </h3>
-                <div class="">
-                </div>
-                <div class="control-group inline">
-                    <div class="controls">
-                        <label class="radio">
-                            <input type="radio" name="sat4" id="1" value="1" required> &nbsp;1</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat4" id="2" value="2" required> &nbsp;2</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat4" id="3" value="3" required> &nbsp;3</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat4" id="4" value="4" required> &nbsp;4</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat4" id="5" value="5" required> &nbsp;5</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat4" id="6" value="6" required> &nbsp;6</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat4" id="7" value="7" required> &nbsp;7</label> &emsp;
-                    </div>
-                </div>
-            </div>
+    <!-- Helpers -->
+    <script src="./assets/vendor/js/helpers.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-            <div class="panel panel-body" style="background-color:#e8ebef">
-                <h3> The recommendation system pushed me to select a specific item.</h3>
-                <div class="">
-                </div>
-                <div class="control-group inline">
-                    <div class="controls">
-                        <label class="radio">
-                            <input type="radio" name="sat5" id="1" value="1" required> &nbsp;1</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat5" id="2" value="2" required> &nbsp;2</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat5" id="3" value="3" required> &nbsp;3</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat5" id="4" value="4" required> &nbsp;4</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat5" id="5" value="5" required> &nbsp;5</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat5" id="6" value="6" required> &nbsp;6</label> &emsp;
-                        <label class="radio">
-                            <input type="radio" name="sat5" id="7" value="7" required> &nbsp;7</label> &emsp;
-                    </div>
-                </div>
-            </div>
 
-            <!-- Add more questions as needed -->
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="./assets/js/config.js"></script>
+    <style>
+        /* Custom CSS for fixing table header */
+    .fixed-header {
+      position: sticky;
+      top: 0;
+      background-color: #F2F2F2; /* Optional: Set your preferred background color */
+      /* z-index: 1000; */
+    }
+    /* Additional CSS for the content */
+   
+    .thumbnail{
+        width:50px;
+        height: 50px;
+        border: 1px solid #ddd; /* Gray border */
+        border-radius: 4px;  /* Rounded border */
+    }
+    .button-row{
+        /* margin-top: 30px; */
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+.swal-footer{
+    text-align: center;
+}
+.swal-footer .swal-button , .swal-button:not([disabled]):hover{
+    background-color: #696cff;
+}
+.swal-button:focus{
+box-shadow: none;
+}
 
-            <div class="panel panel-heading">
-                <button class="btn btn-success btn-lg" id="update-button" type="button"
-                    onclick="submitFeedback()">Next</button>
-            </div>
-        </form>
-    </div>
+.radio{
+    margin-top: 8px;
+    cursor: pointer;
+}
 
-    <div class="container">
-        <!-- Additional content or styling can be added here -->
-    </div>
 
-    <script>
-        function submitFeedback() {
-            // Create an object to store all responses
-            var feedbackData = {
-                sat1: document.querySelector('input[name="sat1"]:checked').value,
-                sat2: document.querySelector('input[name="sat2"]:checked').value,
-                // Add more fields for other questions as needed
-            };
-
-            // Replace 'YOUR_API_ENDPOINT' with the actual endpoint URL for submitting feedback
-            const apiEndpoint = 'http://example.com/submit-feedback';
-
-            // Make a POST request to the API endpoint
-            fetch(apiEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(feedbackData),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Feedback Submission Response:', data);
-                    // Handle the response as needed
-                })
-                .catch(error => console.error('Error submitting feedback:', error));
+.full-size-image-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
         }
-    </script>
 
-</body>
+        .full-size-image-wrapper {
+            position: relative;
+        }
+
+        .full-size-image {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 20px;
+        }
+    </style>
+  </head>
+
+  <body>
+
+    
+    <div class="loading" id="customLoader"></div>
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+      
+        <!-- Layout container -->
+        <div class="layout-page">
+        
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="card">
+                <div class="row ms-2 mt-4">
+                    <div class="col-md-12"> <h3 class="">Feedback</h3>
+                     <h4 class="">Based on your recent choice, how much do you agree with the following statements.</h4>
+                     <h5 class="">Please rate based on the following criteria:</h5>
+                       <h6> 1=Strongly Disagree &emsp;&emsp; 2=Disagree Somewhat &emsp;&emsp; 3=Disagree &emsp;&emsp; 4=Neutral
+                        &emsp;&emsp; 5=Somewhat Agree &emsp;&emsp; 6=Agree &emsp;&emsp; 7=Strongly Agree</h6></div>
+
+
+
+                        <div class="panel panel-default">
+                            <hr>
+                            <form class="form-inline" id="feedbackForm">
+                                <!-- Your existing feedback questions go here -->
+                                <div class="panel panel-body" >
+                                    <h5> The recommended products were well-chosen.</h5>
+                                    <div class="">
+                                    </div>
+                                    <div class="control-group inline">
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat0" id="1" value="1" required> &nbsp;1</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat0" id="2" value="2" required> &nbsp;2</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat0" id="3" value="3" required> &nbsp;3</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat0" id="4" value="4" required> &nbsp;4</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat0" id="5" value="5" required> &nbsp;5</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat0" id="6" value="6" required> &nbsp;6</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat0" id="7" value="7" required> &nbsp;7</label> &emsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="panel panel-body" >
+                                    <h5> I am satisfied with the recommended products.</h5>
+                                    <div class="">
+                                    </div>
+                                    <div class="control-group inline">
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat1" id="1" value="1" required> &nbsp;1</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat1" id="2" value="2" required> &nbsp;2</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat1" id="3" value="3" required> &nbsp;3</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat1" id="4" value="4" required> &nbsp;4</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat1" id="5" value="5" required> &nbsp;5</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat1" id="6" value="6" required> &nbsp;6</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat1" id="7" value="7" required> &nbsp;7</label> &emsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="panel panel-body" >
+                                    <h5> The system is able to identify good recommendations.</h5>
+                                    <div class="">
+                                    </div>
+                                    <div class="control-group inline">
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat2" id="1" value="1" required> &nbsp;1</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat2" id="2" value="2" required> &nbsp;2</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat2" id="3" value="3" required> &nbsp;3</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat2" id="4" value="4" required> &nbsp;4</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat2" id="5" value="5" required> &nbsp;5</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat2" id="6" value="6" required> &nbsp;6</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat2" id="7" value="7" required> &nbsp;7</label> &emsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="panel panel-body" >
+                                    <h5> All of the recommended products were aligned with my preferences.</h5>
+                                    <div class="">
+                                    </div>
+                                    <div class="control-group inline">
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat3" id="1" value="1" required> &nbsp;1</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat3" id="2" value="2" required> &nbsp;2</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat3" id="3" value="3" required> &nbsp;3</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat3" id="4" value="4" required> &nbsp;4</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat3" id="5" value="5" required> &nbsp;5</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat3" id="6" value="6" required> &nbsp;6</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat3" id="7" value="7" required> &nbsp;7</label> &emsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="panel panel-body" >
+                                    <h5> The recommendation system tried to manipulate my preferences by showing items that were not aligned with my preferences.
+                                    </h5>
+                                    <div class="">
+                                    </div>
+                                    <div class="control-group inline">
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat4" id="1" value="1" required> &nbsp;1</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat4" id="2" value="2" required> &nbsp;2</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat4" id="3" value="3" required> &nbsp;3</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat4" id="4" value="4" required> &nbsp;4</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat4" id="5" value="5" required> &nbsp;5</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat4" id="6" value="6" required> &nbsp;6</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat4" id="7" value="7" required> &nbsp;7</label> &emsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="panel panel-body">
+                                    <h5> The recommendation system pushed me to select a specific item.</h5>
+                                    <div class="">
+                                    </div>
+                                    <div class="control-group inline">
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat5" id="1" value="1" required> &nbsp;1</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat5" id="2" value="2" required> &nbsp;2</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat5" id="3" value="3" required> &nbsp;3</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat5" id="4" value="4" required> &nbsp;4</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat5" id="5" value="5" required> &nbsp;5</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat5" id="6" value="6" required> &nbsp;6</label> &emsp;
+                                            <label class="radio">
+                                                <input class="form-check-input" type="radio" name="sat5" id="7" value="7" required> &nbsp;7</label> &emsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <!-- Add more questions as needed -->
+                    
+                                <div class="panel panel-heading">
+                                    <button class="btn btn-primary" id="update-button" type="button"
+                                        onclick="submitFeedback()">Submit</button>
+                                </div>
+                                <br>
+                            </form>
+                        </div>
+
+
+                </div>
+
+
+                
+
+                
+
+       
+
+                
+              </div>
+              
+            </div>
+            <!-- / Content -->
+
+
+
+
+
+        
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="./assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="./assets/vendor/libs/popper/popper.js"></script>
+    <script src="./assets/vendor/js/bootstrap.js"></script>
+    <script src="./assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="./assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="./assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="./assets/js/pages-account-settings-account.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+
+
+  <script>
+    function submitFeedback() {
+        // Create an object to store all responses
+        var feedbackData = {
+            sat1: document.querySelector('input[name="sat1"]:checked').value,
+            sat2: document.querySelector('input[name="sat2"]:checked').value,
+            sat3: document.querySelector('input[name="sat3"]:checked').value,
+            sat4: document.querySelector('input[name="sat4"]:checked').value,
+            sat5: document.querySelector('input[name="sat5"]:checked').value,
+            // Add more fields for other questions as needed
+        };
+
+        // Replace 'YOUR_API_ENDPOINT' with the actual endpoint URL for submitting feedback
+        const apiEndpoint = 'https://2bad-2605-a601-559b-1800-2dab-154a-c797-82cd.ngrok-free.app/submit-feedback';
+        $('div#customLoader').show();
+        // Make a POST request to the API endpoint
+        fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(feedbackData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                $('div#customLoader').hide();
+                
+                window.location.href = 'thankyou.html';
+
+                console.log('Feedback Submission Response:', data);
+                // Handle the response as needed
+            })
+            .catch(error => {
+                $('div#customLoader').hide();
+                console.error('Error submitting feedback:', error)
+            });
+    }
+</script>
+
+
 
 </html>

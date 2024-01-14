@@ -1,198 +1,255 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Feedback Form</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 0;
-    }
 
-    .container {
-      max-width: 800px;
-      margin: 20px auto;
-      background-color: #fff;
-      border-radius: 5px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="./assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
 
-    h3 {
-      color: #333;
-    }
+    <title>UserInfo Form</title>
 
-    .panel-body {
-      margin-bottom: 20px;
-      padding: 15px;
-      border-radius: 5px;
-    }
+    <meta name="description" content="" />
 
-    .radio-label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: normal;
-    }
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon/favicon.ico" />
 
-    input[type="text"],
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
 
-    .btn-submit {
-      background-color: #4caf50;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="./assets/vendor/fonts/boxicons.css" />
 
-    .btn-submit:hover {
-      background-color: #45a049;
-    }
-  </style>
-</head>
-<body>
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="./assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="./assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="./assets/css/demo.css" />
 
-  <div class="container">
-    <h3><b>Please answer the following questions.</b></h3>
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="./assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <form class="form-inline" id="feedbackForm">
-      <!-- Additional Fields -->
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>First Name</h3>
-        <div class="radio-label">
-          <input type="text" id="first_name" name="first_name" required>
-        </div>
-      </div>
+    <!-- Page CSS -->
 
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>Last Name</h3>
-        <div class="radio-label">
-          <input type="text" id="last_name" name="last_name" required>
-        </div>
-      </div>
+    <!-- Helpers -->
+    <script src="./assets/vendor/js/helpers.js"></script>
 
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>Address</h3>
-        <div class="radio-label">
-          <input type="text" id="address" name="address" required>
-        </div>
-      </div>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="./assets/js/config.js"></script>
+  </head>
 
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>City</h3>
-        <div class="radio-label">
-          <input type="text" id="city" name="city" required>
-        </div>
-      </div>
+  <body>
+    <div class="loading" id="customLoader"></div>
 
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>Country</h3>
-        <div class="radio-label">
-          <input type="text" id="country" name="country" required>
-        </div>
-      </div>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
       
-      <!-- Existing Questions -->
-      <!-- Question 1 -->
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>Did you participate in a similar study before?</h3>
-        <div class="radio-label">
-          <label for="old_user_yes"><input type="radio" name="old_user_id" id="old_user_yes" value="yes" required> Yes</label>
+        <!-- Layout container -->
+        <div class="layout-page">
+        
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y" style="max-width: 50%;">
+              <div class="row">
+                <div class="col-md-12">
+                
+                  <div class="card mb-4">
+                    <h5 class="card-header">Please answer the following questions.</h5>
+                    <!-- Account -->
+                  
+                    <hr class="my-0" />
+                    <div class="card-body">
+                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+                          <div class="mb-3 col-md-6">
+                            <label for="firstName"  class="form-label">First Name</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="first_name" name="first_name"
+                              value=""
+                              autofocus
+                            />
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input class="form-control" type="text" id="last_name" name="last_name"  value="" />
+                          </div>
+                         
+                          <div class="mb-3 col-md-6">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="city" class="form-label">City</label>
+                            <input class="form-control" type="text" id="city" name="city" placeholder="" />
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="country" class="form-label">Country</label>
+                            <input class="form-control" type="text" id="country" name="country" placeholder="" />
+                          </div>
+
+                          <hr>
+                          <div class="mb-3 col-md-12">
+                            <h6 class="">Did you participate in a similar study before?</h6>
+                            <div class="form-check">
+                              <label for="old_user_yes"><input class="form-check-input" type="radio" name="old_user_id" id="old_user_yes" value="yes" required> Yes</label>
+                            </div>
+                            <div class="form-check">
+                              <label for="old_user_no"><input class="form-check-input" type="radio" name="old_user_id" id="old_user_no" value="no" required> No</label>
+                            </div>
+                          </div>
+
+
+                          <hr>
+                          <div class="mb-3 col-md-12">
+                            <h6 class="">What is your gender?</h6>
+                            <div class="form-check">
+                              <input  class="form-check-input" name ="gender" type="radio" value="male" id="gender_male" >
+                              <label class="form-check-label" for="gender_male"> Male </label>
+                            </div>
+                            <div class="form-check">
+                              <input  class="form-check-input" name ="gender" type="radio" value="female" id="gender_female" >
+                              <label class="form-check-label" for="gender_female"> Female </label>
+                            </div>
+                            <div class="form-check">
+                              <input  class="form-check-input" name ="gender" type="radio" value="other" id="gender_other" >
+                              <label class="form-check-label" for="gender_other"> Other </label>
+                            </div>
+
+                          </div>
+
+                          <hr>
+                            <div class="mb-3 col-md-6">
+                              <h6 class="">How old are you?</h6>
+                              <label for="age">Your Age:</label>
+                              <input  class="form-control" type="number" id="age" name="age" required>
+                              </div>
+
+
+                              <hr>
+                              <div class="mb-3 col-md-12">
+                                <h6 class="">Are you a native English speaker?
+                                </h6>
+                                <div class="form-check">
+                                  <input  class="form-check-input" name="native" id="native_yes" value="y"  type="radio" >
+                                  <label class="form-check-label" for="native_yes"> Yes </label>
+                                </div>
+
+                                <div class="form-check">
+                                  <input class="form-check-input" name="native" id="native_no" value="n"  type="radio" >
+                                  <label class="form-check-label" for="native_no"> No </label>
+                                </div>
+                              </div>
+
+                              <hr>
+                              <div class="mb-3 col-md-12">
+                                <h6 class="">Have you used any recommendation systems before?
+                                </h6>
+                                <div class="form-check">
+                                  <input  name="used" id="used_yes" value="y" required class="form-check-input" type="radio" >
+                                  <label class="form-check-label" for="used_yes"> Yes </label>
+                                </div>
+
+                                <div class="form-check">
+                                  <input name="used" id="used_no" value="n" required class="form-check-input"  type="radio" >
+                                  <label class="form-check-label" for="used_no"> No </label>
+                                </div>
+                              </div>
+
+
+                              <hr>
+                              <div class="mb-3 col-md-12">
+                               
+
+                                <h5>How familiar are you with recommendation systems and how they work?</h5>
+                                <h6>Please rate based on the following criteria:</h6>
+                                <div class="form-check">
+                                  <label for="familiar_1"><input type="radio" name="familiar" class="form-check-input" id="familiar_1" value="1" required> 1 (Not at all)</label>
+                                </div>
+                                <div class="form-check">
+                                  <label for="familiar_2"><input type="radio" name="familiar"  class="form-check-input" id="familiar_2" value="2" required> 2</label>
+                                </div>
+                                <div class="form-check">
+                                  <label for="familiar_3"><input type="radio" name="familiar"  class="form-check-input" id="familiar_3" value="3" required> 3</label>
+                                </div>
+                                <div class="form-check">
+                                  <label for="familiar_4"><input type="radio" name="familiar"  class="form-check-input" id="familiar_4" value="4" required> 4</label>
+                                </div>
+                                <div class="form-check">
+                                  <label for="familiar_5"><input type="radio" name="familiar"  class="form-check-input" id="familiar_5" value="5" required> 5 (Extremely)</label>
+                                </div>
+
+                              </div>
+                                  
+
+
+                         
+                        </div>
+                        <div class="mt-2">
+                          <button type="button" onclick="submitForm()"  class="btn btn-primary me-2">Submit</button>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /Account -->
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+        
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
         </div>
-        <div class="radio-label">
-          <label for="old_user_no"><input type="radio" name="old_user_id" id="old_user_no" value="no" required> No</label>
-        </div>
+        <!-- / Layout page -->
       </div>
 
-      <!-- Question 2 -->
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>What is your gender?</h3>
-        <div class="radio-label">
-          <label for="gender_male"><input type="radio" name="gender" id="gender_male" value="male" required> Male</label>
-        </div>
-        <div class="radio-label">
-          <label for="gender_female"><input type="radio" name="gender" id="gender_female" value="female" required> Female</label>
-        </div>
-        <div class="radio-label">
-          <label for="gender_other"><input type="radio" name="gender" id="gender_other" value="other" required> Other</label>
-        </div>
-      </div>
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
 
-      <!-- Question 3 -->
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>How old are you?</h3>
-        <div class="radio-label">
-          <label for="age">Your Age:</label>
-          <input type="number" id="age" name="age" required>
-        </div>
-      </div>
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="./assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="./assets/vendor/libs/popper/popper.js"></script>
+    <script src="./assets/vendor/js/bootstrap.js"></script>
+    <script src="./assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-      <!-- Question 4 -->
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>Are you a native English speaker?</h3>
-        <div class="radio-label">
-          <label for="native_yes"><input type="radio" name="native" id="native_yes" value="y" required> Yes</label>
-        </div>
-        <div class="radio-label">
-          <label for="native_no"><input type="radio" name="native" id="native_no" value="n" required> No</label>
-        </div>
-      </div>
+    <script src="./assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
 
-      <!-- Question 6 -->
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>Have you used any recommendation systems before?</h3>
-        <div class="radio-label">
-          <label for="used_yes"><input type="radio" name="used" id="used_yes" value="y" required> Yes</label>
-        </div>
-        <div class="radio-label">
-          <label for="used_no"><input type="radio" name="used" id="used_no" value="n" required> No</label>
-        </div>
-      </div>
+    <!-- Vendors JS -->
 
-      <!-- Question 7 -->
-      <div class="panel-body" style="background-color:#e8ebef">
-        <h3>How familiar are you with recommendation systems and how they work?</h3>
-        <p>Please rate based on the following criteria:</p>
-        <div class="radio-label">
-          <label for="familiar_1"><input type="radio" name="familiar" id="familiar_1" value="1" required> 1 (Not at all)</label>
-        </div>
-        <div class="radio-label">
-          <label for="familiar_2"><input type="radio" name="familiar" id="familiar_2" value="2" required> 2</label>
-        </div>
-        <div class="radio-label">
-          <label for="familiar_3"><input type="radio" name="familiar" id="familiar_3" value="3" required> 3</label>
-        </div>
-        <div class="radio-label">
-          <label for="familiar_4"><input type="radio" name="familiar" id="familiar_4" value="4" required> 4</label>
-        </div>
-        <div class="radio-label">
-          <label for="familiar_5"><input type="radio" name="familiar" id="familiar_5" value="5" required> 5 (Extremely)</label>
-        </div>
-      </div>
+    <!-- Main JS -->
+    <script src="./assets/js/main.js"></script>
 
-      <!-- <div class="panel-body" style="background-color:#e8ebef">
-        <h3>How do you feel when you see sponsored content when you are using online services?</h3>
-        <div class="radio-label">
-          <label for="sponsored_content"><input type="text" id="sponsored_content" name="sponsored_content" style="height:100px;width:300px" minlength="50" required></label>
-        </div>
-      </div> -->
+    <!-- Page JS -->
+    <script src="./assets/js/pages-account-settings-account.js"></script>
 
-      <!-- Submit Button -->
-      <div class="panel-body">
-        <button class="btn-submit" type="button" onclick="submitForm()">Submit</button>
-      </div>
-    </form>
-  </div>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
 
   <script>
     function submitForm() {
@@ -226,7 +283,9 @@
       }
 
       // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
-      const apiEndpoint = 'http://127.0.0.1:8000/user-info';
+      const apiEndpoint = 'https://2bad-2605-a601-559b-1800-2dab-154a-c797-82cd.ngrok-free.app/user-info';
+
+      $('div#customLoader').show();
 
       // Send data to API endpoint (you can use fetch or another AJAX method)
       fetch(apiEndpoint, {
@@ -238,6 +297,7 @@
       })
         .then(response => response.json())
         .then(data => {
+          $('div#customLoader').hide();
           console.log('API response:', data);
           // Handle the response from the API as needed
 
@@ -250,11 +310,10 @@
           }
         })
         .catch(error => {
+          $('div#customLoader').hide();
           console.error('Error submitting form:', error);
           // Handle errors here
         });
     }
   </script>
-
-</body>
 </html>

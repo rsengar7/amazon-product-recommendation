@@ -1,334 +1,326 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="./assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
     <title>Product Details</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="./assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="./assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="./assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="./assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="./assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="./assets/vendor/js/helpers.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="./assets/js/config.js"></script>
     <style>
-        /* Add your styles here if needed */
-
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);
-        }
-
-        h1 {
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            color: #333;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .thumbnail {
-            max-width: 50px;
-            cursor: pointer;
-            margin-right: 10px;
-            /* Added margin between thumbnails */
-        }
-
-        .full-size-image-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .full-size-image-wrapper {
-            position: relative;
-        }
-
-        .full-size-image {
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            color: #fff;
-            font-size: 20px;
-        }
-
-        .submit-button {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #4caf50;
-            color: #fff;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .error-message-container {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #f44336;
-            color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        loader {
-            display: none;
-            border: 8px solid #f3f3f3;
-            /* Light grey */
-            border-top: 8px solid #3498db;
-            /* Blue */
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            margin-top: -25px;
-            /* Adjust based on the loader size */
-            margin-left: -25px;
-            /* Adjust based on the loader size */
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+        /* Custom CSS for fixing table header */
+    .fixed-header {
+      position: sticky;
+      top: 0;
+      background-color: #F2F2F2; /* Optional: Set your preferred background color */
+      /* z-index: 1000; */
+    }
+    /* Additional CSS for the content */
+    .scrollable-content {
+        height: calc(100vh - 180px); /* Adjust the subtraction value based on your layout */
+      overflow-y: scroll;
+    }
+    .thumbnail{
+        width:50px;
+        height: 50px;
+        border: 1px solid #ddd; /* Gray border */
+        border-radius: 4px;  /* Rounded border */
+    }
+    .button-row{
+        /* margin-top: 30px; */
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+.swal-footer{
+    text-align: center;
+}
+.swal-footer .swal-button , .swal-button:not([disabled]):hover{
+    background-color: #696cff;
+}
+.swal-button:focus{
+box-shadow: none;
+}
     </style>
-</head>
+  </head>
 
-<body>
-    <div id="loader" class="loader"></div>
+  <body>
 
-    <h1>Product Details</h1>
+    
+    <div class="loading" id="customLoader"></div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Brand</th>
-                <th>Average Rating</th>
-                <th>Images</th>
-                <th>Rating</th>
-            </tr>
-        </thead>
-        <tbody id="dataContainer"></tbody>
-    </table>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+      
+        <!-- Layout container -->
+        <div class="layout-page">
+        
 
-    <div id="fullSizeImageContainer" class="full-size-image-container">
-        <span class="close-button" onclick="closeFullSizeImage()">×</span>
-        <img id="fullSizeImage" class="full-size-image" src="" alt="Full Size Image">
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="card">
+                <div class="row">
+                    
+                    <div class="col-md-12"> <h5 class="card-header">Product Details</h5></div>
+                </div>
+                
+                <div class="table-responsive text-nowrap scrollable-content">
+                  <table class="table">
+                    <thead class="fixed-header">
+                        <tr class="table-info" >
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Average Rating</th>
+                            <th>Images</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0" id="dataContainer"></tbody>
+                     
+                  </table>
+                  
+                </div>
+                <hr>
+                <div class="row">
+                  
+                    <div class="col-md-12 button-row"> <button type="button" onclick="submitRatings()" class="btn btn-primary">Submit Rating</button></div>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+
+
+        
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+    <!-- / Layout wrapper -->
 
-    <button id="submitButton" class="submit-button" onclick="submitRatings()">Submit Ratings</button>
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="./assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="./assets/vendor/libs/popper/popper.js"></script>
+    <script src="./assets/vendor/js/bootstrap.js"></script>
+    <script src="./assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <div id="errorMessageContainer" class="error-message-container">
-        <p>Please rate at least 20 products before submitting.</p>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            showLoader();
-            // Fetch data from the API
-            fetch('http://127.0.0.1:8000/display-product')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.response === "true") {
-                        // Process the data and display it
-                        displayData(data.data);
-                    } else {
-                        console.error("API returned false response");
-                    }
-                })
-                .catch(error => console.error("Error fetching data:", error))
-                .finally(() => {
-                    // Hide loader regardless of success or error
-                    hideLoader();
-                });
-        });
+    <script src="./assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
 
-        function displayData(data) {
-            const container = document.getElementById('dataContainer');
+    <!-- Vendors JS -->
 
-            // Loop through the data array
-            data.forEach((item, index) => {
-                // Create a row for each item
-                const row = document.createElement('tr');
+    <!-- Main JS -->
+    <script src="./assets/js/main.js"></script>
 
-                // Display item information in cells
-                row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${item.name}</td>
-          <td>${item.category}</td>
-          <td>${item.brand}</td>
-          <td>${item.average_rating}</td>
-          <td>${formatImages(item.imageurl)}</td>
-          <td>${createRatingRadioButtons(item.id)}</td>
-        `;
+    <!-- Page JS -->
+    <script src="./assets/js/pages-account-settings-account.js"></script>
 
-                // Append the row to the table body
-                container.appendChild(row);
-            });
-        }
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
 
-        function formatImages(imageurl) {
-            if (!imageurl) {
-                return '';
-            }
+  <script>
 
-            let imagesHtml = '';
-            for (const key in imageurl) {
-                const imageUrl = imageurl[key];
-                imagesHtml += `<img src="${imageUrl}" alt="Image ${key}" class="thumbnail" onclick="openFullSizeImage('${imageUrl}')">`;
-            }
-
-            return imagesHtml;
-        }
-
-        function createRatingRadioButtons(productId) {
-            let radioButtonsHtml = '';
-            for (let i = 1; i <= 5; i++) {
-                radioButtonsHtml += `
-          <input type="radio" name="rating_${productId}" value="${i}" id="radio_${productId}_${i}">
-          <label for="radio_${productId}_${i}">${i}</label>
-        `;
-            }
-            return radioButtonsHtml;
-        }
-
-        function openFullSizeImage(imageUrl) {
-            const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
-            const fullSizeImage = document.getElementById('fullSizeImage');
-            fullSizeImage.src = imageUrl;
-            fullSizeImageContainer.style.display = 'flex';
-
-            // Add click event listener to close the pop-up when clicking outside the image
-            fullSizeImageContainer.addEventListener('click', function (event) {
-                if (event.target === fullSizeImageContainer) {
-                    closeFullSizeImage();
-                }
-            });
-        }
-
-        function closeFullSizeImage() {
-            const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
-            fullSizeImageContainer.style.display = 'none';
-        }
-
-    function submitRatings() {
-        document.getElementById('loader').style.display = 'block';
-    const selectedRatings = document.querySelectorAll('input[type="radio"]:checked');
-    const errorMessageContainer = document.getElementById('errorMessageContainer');
-
-    if (selectedRatings.length < 5) {
-        // Display an error message
-        errorMessageContainer.style.display = 'block';
-
-        // Set a timeout to hide the error message after 3 seconds
-        setTimeout(() => {
-            errorMessageContainer.style.display = 'none';
-        }, 3000);
-    } else {
-        // Hide the error message if previously shown
-        errorMessageContainer.style.display = 'none';
-
-        // Show loader before making the API request
-        showLoader();
-
-        // Prepare the data to be sent to the API
-        const ratingsData = Array.from(selectedRatings).map(rating => {
-            const productId = rating.name.split('_')[1];
-            return { productId, rating: rating.value };
-        });
-
-        // Replace the URL with your actual API endpoint
-        const apiEndpoint = 'http://127.0.0.1:8000/submit-ratings';
-
-        const storedUserId = localStorage.getItem('user_id');
-
-        // Make a POST request to the API endpoint
-        fetch(apiEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ratings: ratingsData, user_id: storedUserId }),
-        })
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        // Fetch data from the API
+        $('div#customLoader').show();
+        fetch('https://2bad-2605-a601-559b-1800-2dab-154a-c797-82cd.ngrok-free.app/display-product')
             .then(response => response.json())
             .then(data => {
-                console.log('API response:', data);
-                // Handle the response from the API as needed
-
-                // Check if the API response indicates success
-                if (data.success) {
-                    // Redirect to the next page upon success
-                    window.location.href = 'user-recommended-products.html';
+                $('div#customLoader').hide();
+                if (data.response === "true") {
+                    // Process the data and display it
+                    displayData(data.data);
                 } else {
-                    // Handle other cases if needed
+                    console.error("API returned false response");
                 }
             })
-            .catch(error => {
-                console.error('Error submitting ratings:', error);
-                // Handle errors here
-            })
+            .catch(error => console.error("Error fetching data:", error))
             .finally(() => {
+                $('div#customLoader').hide();
                 // Hide loader regardless of success or error
-                hideLoader();
             });
+    });
+
+    function displayData(data) {
+        const container = document.getElementById('dataContainer');
+
+        // Loop through the data array
+        data.forEach((item, index) => {
+            // Create a row for each item
+            const row = document.createElement('tr');
+            // Display item information in cells
+            row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${item.name}</td>
+      <td>${item.category}</td>
+      <td>${item.brand}</td>
+      <td>${item.average_rating}</td>
+      <td>${formatImages(item.imageurl)}</td>
+      <td>${createRatingRadioButtons(item.id)}</td>
+    `;
+
+            // Append the row to the table body
+            container.appendChild(row);
+        });
     }
+
+    function formatImages(imageurl) {
+        if (!imageurl) {
+            return '';
+        }
+
+        let imagesHtml = '';
+        for (const key in imageurl) {
+            const imageUrl = imageurl[key];
+            imagesHtml += `<img src="${imageUrl}" alt="Image ${key}" class="thumbnail" onclick="openFullSizeImage('${imageUrl}')">`;
+        }
+
+        return imagesHtml;
+    }
+
+    function createRatingRadioButtons(productId) {
+        let radioButtonsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+            radioButtonsHtml += `
+      <input type="radio" class="form-check-input" name="rating_${productId}" value="${i}" id="radio_${productId}_${i}">
+      <label class="form-check-label" for="radio_${productId}_${i}">${i}</label>
+    `;
+        }
+        return radioButtonsHtml;
+    }
+
+    function openFullSizeImage(imageUrl) {
+        alert(imageUrl);
+        const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
+        const fullSizeImage = document.getElementById('fullSizeImage');
+        fullSizeImage.src = imageUrl;
+        fullSizeImageContainer.style.display = 'flex';
+
+        // Add click event listener to close the pop-up when clicking outside the image
+        fullSizeImageContainer.addEventListener('click', function (event) {
+            if (event.target === fullSizeImageContainer) {
+                closeFullSizeImage();
+            }
+        });
+    }
+
+    function closeFullSizeImage() {
+        const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
+        fullSizeImageContainer.style.display = 'none';
+    }
+
+function submitRatings() {
+    // document.getElementById('loader').style.display = 'block';
+const selectedRatings = document.querySelectorAll('input[type="radio"]:checked');
+if(selectedRatings.length <= 19){
+    swal("Error!", "Please rate at least 20 products before submitting!",'error');    
+    return    
+} else {
+
+    $('div#customLoader').show();
+    // Prepare the data to be sent to the API
+    const ratingsData = Array.from(selectedRatings).map(rating => {
+        const productId = rating.name.split('_')[1];
+        return { productId, rating: rating.value };
+    });
+
+    // Replace the URL with your actual API endpoint
+    const apiEndpoint = 'https://2bad-2605-a601-559b-1800-2dab-154a-c797-82cd.ngrok-free.app/submit-ratings';
+
+    const storedUserId = localStorage.getItem('user_id');
+
+
+    // Make a POST request to the API endpoint
+    fetch(apiEndpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ratings: ratingsData, user_id: storedUserId }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('API response:', data);
+            // Handle the response from the API as needed
+
+            // Check if the API response indicates success
+            if (data.success) {
+                // Redirect to the next page upon success
+                window.location.href = 'user-recommended-products.html';
+            } else {
+                // Handle other cases if needed
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting ratings:', error);
+            // Handle errors here
+        })
+        .finally(() => {
+            $('div#customLoader').hide();
+        });
+}
 }
 
-        function showLoader() {
-            const loader = document.getElementById('loader');
-            loader.style.display = 'block';
-        }
 
-        function hideLoader() {
-            const loader = document.getElementById('loader');
-            loader.style.display = 'none';
-        }
+</script>
 
-    </script>
-
-
-</body>
 
 </html>
