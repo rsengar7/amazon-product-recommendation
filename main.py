@@ -447,7 +447,7 @@ def get_recommendations(user_id, conn):
         recommended_data[item_id] = rating
         products.append(item_id)
 
-    query = "Select product_id, product_name, brand, title, features, imageurl_high as image from all_products where product_id IN {} and product_name != '' limit 5".format(tuple(products))
+    query = "Select product_id, product_name, price, brand, title, features, imageurl_high as image from all_products where product_id IN {} and product_name != '' limit 5".format(tuple(products))
     print("Query : ",query)
     cur.execute(query)
 
@@ -458,12 +458,13 @@ def get_recommendations(user_id, conn):
         product_row['product_id'] = row[0]
         product_row['rating'] = recommended_data[row[0]]
         product_row['product_name'] = row[1]
-        product_row['brand'] = row[2]
-        product_row['title'] = row[3]
+        product_row['price'] = row[2]
+        product_row['brand'] = row[3]
+        product_row['title'] = row[4]
         # product_row['features'] = row[4]
         
         images = {}
-        for index, image in enumerate(row[5].split("|")):
+        for index, image in enumerate(row[6].split("|")):
             images[index] = image
         product_row['images'] = images
         recommended_products.append(product_row)

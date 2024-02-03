@@ -148,6 +148,7 @@ box-shadow: none;
                       <thead class="fixed-header">
                           <tr class="table-info" >
                             <th>Product Name</th>
+                            <th>Price</th>
                             <th>Rating</th>
                             <th>Brand</th>
                             <th>Title</th>
@@ -188,11 +189,6 @@ box-shadow: none;
             </div>
             <!-- / Content -->
 
-
-
-
-
-        
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -243,6 +239,7 @@ box-shadow: none;
             // tableHtml += '<td>' + (index + 1) + '</td>'; // Add 1 to index to start from 1 instead of 0
             // tableHtml += '<td>' + item.product_id + '</td>';
             tableHtml += '<td>' + item.product_name + '</td>';
+            tableHtml += '<td>' + item.price + '</td>';
             tableHtml += '<td>' + item.rating + '</td>';
             tableHtml += '<td>' + item.brand + '</td>';
             tableHtml += '<td>' + item.title + '</td>';
