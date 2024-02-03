@@ -111,6 +111,8 @@
 </head>
 
 <body>
+
+
     <div class="loading" id="customLoader"></div>
 
     <!-- Layout wrapper -->
@@ -167,6 +169,7 @@
                         <img id="fullSizeImage" alt="Full-size Image">
                     </div>
 
+
                     <div class="content-backdrop fade"></div>
                 </div>
                 <!-- Content wrapper -->
@@ -180,6 +183,7 @@
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
     <script src="./assets/vendor/libs/jquery/jquery.js"></script>
     <script src="./assets/vendor/libs/popper/popper.js"></script>
     <script src="./assets/vendor/js/bootstrap.js"></script>
@@ -198,100 +202,154 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Fetch data from the API
+<script>
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Fetch data from the API
+        $('div#customLoader').show();
+        fetch('http://0.0.0.0:5000/display-product')
+            .then(response => response.json())
+            .then(data => {
+                $('div#customLoader').hide();
+                if (data.response === "true") {
+                    // Process the data and display it
+                    displayData(data.data);
+                } else {
+                    console.error("API returned false response");
+                }
+            })
+            .catch(error => console.error("Error fetching data:", error))
+            .finally(() => {
+                $('div#customLoader').hide();
+                // Hide loader regardless of success or error
+            });
+    });
+
+    function displayData(data) {
+        const container = document.getElementById('dataContainer');
+
+        // Loop through the data array
+        data.forEach((item, index) => {
+            // Create a row for each item
+            const row = document.createElement('tr');
+            // Display item information in cells
+            row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${item.name}</td>
+      <td>${item.category}</td>
+      <td>${item.brand}</td>
+      <td>${item.average_rating}</td>
+      <td>${formatImages(item.imageurl)}</td>
+      <td>${createRatingRadioButtons(item.id)}</td>
+    `;
+
+            // Append the row to the table body
+            container.appendChild(row);
+        });
+    }
+
+    function formatImages(imageurl) {
+        if (!imageurl) {
+            return '';
+        }
+
+        let imagesHtml = '';
+        for (const key in imageurl) {
+            const imageUrl = imageurl[key];
+            imagesHtml += `<img src="${imageUrl}" alt="Image ${key}" class="thumbnail" onclick="openFullSizeImage('${imageUrl}')">`;
+        }
+
+        return imagesHtml;
+    }
+
+    function createRatingRadioButtons(productId) {
+        let radioButtonsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+            radioButtonsHtml += `
+      <input type="radio" class="form-check-input" name="rating_${productId}" value="${i}" id="radio_${productId}_${i}">
+      <label class="form-check-label" for="radio_${productId}_${i}">${i}</label>
+    `;
+        }
+        return radioButtonsHtml;
+    }
+
+    function openFullSizeImage(imageUrl) {
+        // alert(imageUrl);
+        const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
+        const fullSizeImage = document.getElementById('fullSizeImage');
+        fullSizeImage.src = imageUrl;
+        fullSizeImageContainer.style.display = 'flex';
+
+        // Add click event listener to close the pop-up when clicking outside the image
+        fullSizeImageContainer.addEventListener('click', function (event) {
+            if (event.target === fullSizeImageContainer) {
+                closeFullSizeImage();
+            }
+        });
+    }
+
+    function closeFullSizeImage() {
+        const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
+        fullSizeImageContainer.style.display = 'none';
+    }
+
+    function submitRatings() {
+        // document.getElementById('loader').style.display = 'block';
+        const selectedRatings = document.querySelectorAll('input[type="radio"]:checked');
+        if (selectedRatings.length <= 19) {
+            swal("Error!", "Please rate at least 20 products before submitting!", 'error');
+            return
+        } else {
+
             $('div#customLoader').show();
-            fetch('https://2bad-2605-a601-559b-1800-2dab-154a-c797-82cd.ngrok-free.app/display-product')
+            // Prepare the data to be sent to the API
+            const ratingsData = Array.from(selectedRatings).map(rating => {
+                const productId = rating.name.split('_')[1];
+                return { productId, rating: rating.value };
+            });
+
+            // Replace the URL with your actual API endpoint
+            const apiEndpoint = 'http://0.0.0.0:5000/submit-ratings';
+
+            const storedUserId = localStorage.getItem('user_id');
+
+
+            // Make a POST request to the API endpoint
+            fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ratings: ratingsData, user_id: storedUserId }),
+            })
                 .then(response => response.json())
                 .then(data => {
-                    $('div#customLoader').hide();
-                    if (data.response === "true") {
-                        // Process the data and display it
-                        displayData(data.data);
+                    console.log('API response:', data);
+                    // Handle the response from the API as needed
+
+                    // Check if the API response indicates success
+                    if (data.success) {
+                        // Redirect to the next page upon success
+                        window.location.href = 'user-recommended-products.html';
                     } else {
-                        console.error("API returned false response");
+                        // Handle other cases if needed
                     }
                 })
-                .catch(error => console.error("Error fetching data:", error))
+                .catch(error => {
+                    console.error('Error submitting ratings:', error);
+                    // Handle errors here
+                })
                 .finally(() => {
                     $('div#customLoader').hide();
-                    // Hide loader regardless of success or error
                 });
-        });
-
-        function displayData(data) {
-            const container = document.getElementById('dataContainer');
-
-            // Loop through the data array
-            data.forEach((item, index) => {
-                // Create a row for each item
-                const row = document.createElement('tr');
-                // Display item information in cells
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${item.name}</td>
-                    <td>${item.category}</td>
-                    <td>${item.brand}</td>
-                    <td>${item.average_rating}</td>
-                    <td>${formatImages(item.imageurl)}</td>
-                    <td>${createRatingRadioButtons(item.id)}</td>
-                `;
-
-                // Append the row to the table body
-                container.appendChild(row);
-            });
         }
+    }
 
-        function formatImages(imageurl) {
-            if (!imageurl) {
-                return '';
-            }
 
-            let imagesHtml = '';
-            for (const key in imageurl) {
-                const imageUrl = imageurl[key];
-                imagesHtml += `<img src="${imageUrl}" alt="Image ${key}" class="thumbnail" onclick="openFullSizeImage('${imageUrl}')">`;
-            }
+</script>
 
-            return imagesHtml;
-        }
-
-        function createRatingRadioButtons(productId) {
-            let radioButtonsHtml = '';
-            for (let i = 1; i <= 5; i++) {
-                radioButtonsHtml += `
-                    <input type="radio" class="form-check-input" name="rating_${productId}" value="${i}" id="radio_${productId}_${i}">
-                    <label class="form-check-label" for="radio_${productId}_${i}">${i}</label>
-                `;
-            }
-            return radioButtonsHtml;
-        }
-
-        function openFullSizeImage(imageUrl) {
-            const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
-            const fullSizeImage = document.getElementById('fullSizeImage');
-            fullSizeImage.src = imageUrl;
-            fullSizeImageContainer.style.display = 'flex';
-
-            // Add click event listener to close the pop-up when clicking outside the image
-            fullSizeImageContainer.addEventListener('click', function (event) {
-                if (event.target === fullSizeImageContainer) {
-                    closeFullSizeImage();
-                }
-            });
-        }
-
-        function closeFullSizeImage() {
-            const fullSizeImageContainer = document.getElementById('fullSizeImageContainer');
-            fullSizeImageContainer.style.display = 'none';
-        }
-
-        function submitRatings() {
-            // ... (existing code)
-        }
-    </script>
-</body>
 
 </html>

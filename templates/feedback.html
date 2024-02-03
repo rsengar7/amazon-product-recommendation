@@ -365,8 +365,12 @@ box-shadow: none;
 
   <script>
     function submitFeedback() {
+        // Replace 'USER_ID' with the actual user ID
+        const userId = localStorage.getItem('user_id');
+
         // Create an object to store all responses
         var feedbackData = {
+            user_id: userId,
             sat1: document.querySelector('input[name="sat1"]:checked').value,
             sat2: document.querySelector('input[name="sat2"]:checked').value,
             sat3: document.querySelector('input[name="sat3"]:checked').value,
@@ -376,7 +380,7 @@ box-shadow: none;
         };
 
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint URL for submitting feedback
-        const apiEndpoint = 'https://2bad-2605-a601-559b-1800-2dab-154a-c797-82cd.ngrok-free.app/submit-feedback';
+        const apiEndpoint = 'http://0.0.0.0:5000/submit-feedback';
         $('div#customLoader').show();
         // Make a POST request to the API endpoint
         fetch(apiEndpoint, {

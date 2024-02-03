@@ -327,7 +327,7 @@ box-shadow: none;
 
     document.addEventListener("DOMContentLoaded", function () {
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint URL
-        const apiEndpoint = 'https://2bad-2605-a601-559b-1800-2dab-154a-c797-82cd.ngrok-free.app/recommended-products';
+        const apiEndpoint = 'http://0.0.0.0:5000/recommended-products';
 
         // Replace 'USER_ID' with the actual user ID
         const userId = localStorage.getItem('user_id');
@@ -368,7 +368,7 @@ box-shadow: none;
         if (selectedValue) {
           
             // Replace 'YOUR_API_ENDPOINT' with the actual endpoint URL for submitting the selection
-            const submitEndpoint = 'https://2bad-2605-a601-559b-1800-2dab-154a-c797-82cd.ngrok-free.app/submit-selection';
+            const submitEndpoint = 'http://0.0.0.0:5000/submit-selection';
 
             // Replace 'USER_ID' with the actual user ID
             const userId = localStorage.getItem('user_id');
