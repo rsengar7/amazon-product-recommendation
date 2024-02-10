@@ -204,13 +204,16 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
+<!-- <div id="timer">Timer: <span id="timerDisplay">0</span></div> -->
+
 <script>
+    
 
 
     document.addEventListener("DOMContentLoaded", function () {
         // Fetch data from the API
         $('div#customLoader').show();
-        fetch('http://0.0.0.0:5000/display-product')
+        fetch('https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/display-product')
             .then(response => response.json())
             .then(data => {
                 $('div#customLoader').hide();
@@ -312,11 +315,10 @@
             });
 
             // Replace the URL with your actual API endpoint
-            const apiEndpoint = 'http://0.0.0.0:5000/submit-ratings';
+            const apiEndpoint = 'https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/submit-ratings';
 
             const storedUserId = localStorage.getItem('user_id');
-
-
+           
             // Make a POST request to the API endpoint
             fetch(apiEndpoint, {
                 method: 'POST',
@@ -332,24 +334,28 @@
 
                     // Check if the API response indicates success
                     if (data.success) {
+                        submitTimer();
+                        setTimeout(() => {
+                    $('div#customLoader').hide();
+                    window.location.href = 'user-recommended-products.html';
+                   }, 2000);
                         // Redirect to the next page upon success
-                        window.location.href = 'user-recommended-products.html';
                     } else {
                         // Handle other cases if needed
                     }
                 })
                 .catch(error => {
+                    $('div#customLoader').hide();
                     console.error('Error submitting ratings:', error);
                     // Handle errors here
                 })
                 .finally(() => {
-                    $('div#customLoader').hide();
+                    // $('div#customLoader').hide();
                 });
         }
     }
 
 
-</script>
-
+    </script>
 
 </html>

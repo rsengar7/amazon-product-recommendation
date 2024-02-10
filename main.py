@@ -334,6 +334,18 @@ def submit_selection(data: dict):
     return {"response": True, "data": data}
 
 
+@app.post('/login_timetrack')
+def timetrack(data: dict):
+    print(data)
+
+    with open("timetrack.txt", "a") as f1:
+        f1.write(str(data))
+        f1.write("\n")
+
+
+
+    return {"res": "true"}
+
 @app.post("/submit-feedback")
 def feedback_view(data: dict):
     conn = DBConfig().db_conn()

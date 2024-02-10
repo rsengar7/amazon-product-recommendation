@@ -283,7 +283,7 @@
       }
 
       // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
-      const apiEndpoint = 'http://0.0.0.0:5000/user-info';
+      const apiEndpoint = 'https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/user-info';
 
       $('div#customLoader').show();
 
@@ -297,12 +297,18 @@
       })
         .then(response => response.json())
         .then(data => {
-          $('div#customLoader').hide();
+          // $('div#customLoader').hide();
           console.log('API response:', data);
           // Handle the response from the API as needed
 
           // Check if the API response indicates success
           if (data.success) {
+            submitTimer();
+            setTimeout(() => {
+                    $('div#customLoader').hide();
+                    window.location.href = 'display-product.html';
+                   }, 2000);
+
               // Redirect to index.html upon success
               window.location.href = 'display-product.html';
           } else {

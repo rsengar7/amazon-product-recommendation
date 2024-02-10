@@ -142,7 +142,7 @@
             };
 
             $('div#customLoader').show();
-            fetch('http://0.0.0.0:5000/login', {
+            fetch('https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -151,7 +151,6 @@
             })
             .then(response => response.json())
             .then(responseData => {
-              $('div#customLoader').hide();
 
                 console.log('Login Response:', responseData);
 
@@ -159,8 +158,12 @@
                 if (responseData.success) {
                     const user_id = responseData.user_id;
                     localStorage.setItem('user_id', user_id.toString());
-                    // Redirect to display-product.html
+                   submitTimer();
+                   setTimeout(() => {
+                    $('div#customLoader').hide();
                     window.location.href = 'display-product.html';
+                   }, 2000);
+                    // Redirect to display-product.html
                 } else {
                     // Handle unsuccessful login (e.g., display an error message)
                     alert('Invalid username or password');

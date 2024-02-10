@@ -380,8 +380,9 @@ box-shadow: none;
         };
 
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint URL for submitting feedback
-        const apiEndpoint = 'http://0.0.0.0:5000/submit-feedback';
+        const apiEndpoint = 'https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/submit-feedback';
         $('div#customLoader').show();
+
         // Make a POST request to the API endpoint
         fetch(apiEndpoint, {
             method: 'POST',
@@ -392,9 +393,12 @@ box-shadow: none;
         })
             .then(response => response.json())
             .then(data => {
-                $('div#customLoader').hide();
-                
-                window.location.href = 'thankyou.html';
+                submitTimer();
+                setTimeout(() => {
+                    $('div#customLoader').hide();
+                    window.location.href = 'thankyou.html';
+                   }, 2000);
+
 
                 console.log('Feedback Submission Response:', data);
                 // Handle the response as needed

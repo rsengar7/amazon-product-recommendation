@@ -116,3 +116,48 @@ let menu, animate;
   // Auto update menu collapsed/expanded based on the themeConfig
   window.Helpers.setCollapsed(true, false);
 })();
+
+
+// Timer functionality
+var startTime;
+var timerInterval;
+
+function startTimer() {
+  startTime = Date.now();
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+  var elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Convert milliseconds to seconds
+  // No need to render in HTML, just keep track of the time
+}
+
+// Send timer value to server
+function submitTimer() {
+  clearInterval(timerInterval); // Stop the timer
+  var timerValue = Math.floor((Date.now() - startTime) / 1000); // Get elapsed time directly
+  var path = window.location.pathname;
+  var page = path.split("/").pop();
+  const storedUserId = localStorage.getItem('user_id');
+  const apiEndpoint = 'https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/login_timetrack';
+
+  fetch(apiEndpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ timer_value: timerValue, user_id: storedUserId, pageName: page }),
+  }).then(response => {
+    
+    if (response.ok) {
+      console.log("Timer value sent successfully.");
+    } else {
+      console.error("Error sending timer value:", response.statusText);
+    }
+  }).catch(error => {
+    console.error("Error sending timer value:", error);
+  });
+}
+
+// Start the timer when the page loads
+startTimer();

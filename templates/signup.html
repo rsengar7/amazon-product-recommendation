@@ -189,7 +189,8 @@
             };
 
             $('div#customLoader').show();
-            fetch('http://0.0.0.0:5000/signup', {
+
+            fetch('https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -198,7 +199,7 @@
             })
             .then(response => response.json())
             .then(responseData => {
-                $('div#customLoader').hide();
+                // $('div#customLoader').hide();
                 console.log('Signup Response:', responseData);
 
                 // Check if signup was successful
@@ -206,8 +207,13 @@
                     const user_id = responseData.user_id;
 
                     localStorage.setItem('user_id', user_id.toString());
-                    // Redirect to user-info page
+                    submitTimer();
+
+                    setTimeout(() => {
+                    $('div#customLoader').hide();
                     window.location.href = 'user-info.html';
+                   }, 2000);
+                    // Redirect to user-info page
                 } else {
                     // Handle unsuccessful signup (e.g., display an error message)
                     alert('Signup failed. Please check your information.');
