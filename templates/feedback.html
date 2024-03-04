@@ -371,16 +371,17 @@ box-shadow: none;
         // Create an object to store all responses
         var feedbackData = {
             user_id: userId,
-            sat1: document.querySelector('input[name="sat1"]:checked').value,
-            sat2: document.querySelector('input[name="sat2"]:checked').value,
-            sat3: document.querySelector('input[name="sat3"]:checked').value,
-            sat4: document.querySelector('input[name="sat4"]:checked').value,
-            sat5: document.querySelector('input[name="sat5"]:checked').value,
+            well_chosen: document.querySelector('input[name="sat0"]:checked').value,
+            satisfied: document.querySelector('input[name="sat1"]:checked').value,
+            good_recommend: document.querySelector('input[name="sat2"]:checked').value,
+            recommend_align: document.querySelector('input[name="sat3"]:checked').value,
+            recommend_manipulate: document.querySelector('input[name="sat4"]:checked').value,
+            recommend_pushed_item: document.querySelector('input[name="sat5"]:checked').value,
             // Add more fields for other questions as needed
         };
 
         // Replace 'YOUR_API_ENDPOINT' with the actual endpoint URL for submitting feedback
-        const apiEndpoint = 'https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/submit-feedback';
+        const apiEndpoint = 'http://127.0.0.1:5000/submit-feedback';
         $('div#customLoader').show();
 
         // Make a POST request to the API endpoint

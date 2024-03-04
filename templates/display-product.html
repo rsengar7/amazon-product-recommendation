@@ -213,7 +213,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         // Fetch data from the API
         $('div#customLoader').show();
-        fetch('https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/display-product')
+        fetch('http://127.0.0.1:5000/display-product')
             .then(response => response.json())
             .then(data => {
                 $('div#customLoader').hide();
@@ -315,7 +315,7 @@
             });
 
             // Replace the URL with your actual API endpoint
-            const apiEndpoint = 'https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/submit-ratings';
+            const apiEndpoint = 'http://127.0.0.1:5000/submit-ratings';
 
             const storedUserId = localStorage.getItem('user_id');
            

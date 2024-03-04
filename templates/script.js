@@ -25,7 +25,7 @@ function submitSignup() {
         phone_number: phone_number
     };
 
-    fetch('https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/signup', {
+    fetch('http://127.0.0.1:5000/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ function submitLogin() {
         password: password
     };
 
-    fetch('https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/login', {
+    fetch('http://127.0.0.1:5000/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -139,7 +139,7 @@ function submitTimer() {
   var path = window.location.pathname;
   var page = path.split("/").pop();
   const storedUserId = localStorage.getItem('user_id');
-  const apiEndpoint = 'https://12f7-2605-a601-559b-1800-2845-dd74-d44b-476b.ngrok-free.app/login_timetrack';
+  const apiEndpoint = 'http://127.0.0.1:5000/login-timetrack';
 
   fetch(apiEndpoint, {
     method: 'POST',
