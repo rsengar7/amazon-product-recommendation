@@ -2,6 +2,7 @@ import os, sys
 import csv
 import time
 import pandas as pd
+import numpy as np
 import requests as re
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
@@ -31,27 +32,25 @@ review_location = []
 
 df = pd.read_csv("amazon_urls.csv")
 
-for index, url in enumerate(df['Urls'].tolist()[0:300]):
+for index, baseurl in enumerate(df['Urls'].tolist()[0:1]):
     print(index, "----", len(df))
-    base_url = url.split("/ref")[0].replace('dp', 'product-reviews')
+    base_url = baseurl.split("/ref")[0].replace('dp', 'product-reviews')
     all_review_part = "/ref=cm_cr_arp_d_paging_btm_next_{}?ie=UTF8&reviewerType=all_reviews&pageNumber={}"
 
     stars = {1: 'one_star', 2: 'two_star', 3: 'three_star', 4: 'four_star', 5: 'five_star'}
     for number, star in stars.items():
         all_review_part = "/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&reviewerType=all_reviews&filterByStar={}&pageNumber={}"
         review_url = base_url + all_review_part
+        print(review_url)
 
-        for i in range(1, 11):
+        for i in range(1, 6):
             # url = "https://www.amazon.com/Scopely-Inc-Stumble-Guys/product-reviews/B0C7WJLQQF/ref=cm_cr_arp_d_paging_btm_next_{}?ie=UTF8&reviewerType=all_reviews&pageNumber={}".format(i, i)
             url = review_url.format(star, i)
-            # print(url)
             driver.get(url)
-
             time.sleep(1)
 
             for j in range(1, 11):
-                ASIN.append(url.split("/")[5])
-                star_rating.append(number)
+                # time.sleep(1)
 
                 try:
                     profile_name_xpath = "/html/body/div[1]/div[2]/div/div[1]/div/div[1]/div[5]/div[3]/div/div[{}]/div/div/div[1]/a/div[2]/span".format(j)
@@ -88,6 +87,14 @@ for index, url in enumerate(df['Urls'].tolist()[0:300]):
                     Review.append(data.text)
                 except:
                     Review.append("")
+
+                if Names[-1] == "" and Review_rating[-1] == "" and Review_date[-1] == "" and review_location[-1] == "" and Review[-1] == "":
+                    ASIN.append("")
+                    star_rating.append("")
+                else:
+                    ASIN.append(url.split("/")[5])
+                    star_rating.append(number)
+                    
                 # print("*"*100)
 
 dict1 = {
@@ -102,7 +109,11 @@ dict1 = {
 
 df = pd.DataFrame(dict1)
 
-df['Review'] = df['reviewText'].astype(str)
-df = df.dropna(subset=['Review'])  # Drop rows with missing reviews
-
+print(df.head())
+df['Review'] = df['Review'].astype(str)
+print(len(df))
+df = df[df['Review'] != '']
+# df = df.replace('', np.nan)
+df.dropna(subset = ['Review'], inplace=True)  # Drop rows with missing reviews
+print(len(df))
 df.to_csv("amazon_reviews_300.csv")
